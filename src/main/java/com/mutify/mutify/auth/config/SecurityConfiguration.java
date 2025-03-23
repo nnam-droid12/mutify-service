@@ -42,8 +42,7 @@ public class SecurityConfiguration {
                                 "/v3/api-docs/**"
                         ).permitAll()
                         .requestMatchers("/api/v1/auth/**",  "/api/v1/forgot-password/**", "/file/**").permitAll()
-                        .requestMatchers("/api/v1/document/**", "/api/v1/speech/**").authenticated()
-                        .requestMatchers("/api/v1/navigator/**", "/api/v1/agreements/calendar/**").authenticated()
+                        .requestMatchers("/api/v1/business/**").authenticated()
                 ).sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
@@ -58,7 +57,7 @@ public class SecurityConfiguration {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(
-                "https://lexiai-l4qf.onrender.com/",
+                "",
                 "http://localhost:3000"
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
