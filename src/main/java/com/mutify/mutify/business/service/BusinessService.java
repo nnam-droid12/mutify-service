@@ -10,8 +10,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class BusinessService {
 
-    @Autowired
-    private BusinessRepository businessRepository;
+
+    private final BusinessRepository businessRepository;
+
+    public BusinessService(BusinessRepository businessRepository) {
+        this.businessRepository = businessRepository;
+    }
 
     public Business registerBusiness(BusinessDto businessDTO) {
         if (businessRepository.findByEmail(businessDTO.getEmail()).isPresent()) {

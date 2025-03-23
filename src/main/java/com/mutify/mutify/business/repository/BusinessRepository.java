@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
 public interface BusinessRepository extends JpaRepository<Business, String> {
     Optional<Business> findByEmail(String email);
 }
