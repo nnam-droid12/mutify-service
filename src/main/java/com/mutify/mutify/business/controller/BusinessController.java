@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/business")
 public class BusinessController {
 
-    @Autowired
-    private BusinessService businessService;
 
-    @PostMapping("/register")
+    private final BusinessService businessService;
+
+    public BusinessController(BusinessService businessService) {
+        this.businessService = businessService;
+    }
+
+    @PostMapping("/register-business")
     public ResponseEntity<Business> registerBusiness(@RequestBody BusinessDto businessDTO) {
         Business business = businessService.registerBusiness(businessDTO);
         return ResponseEntity.ok(business);

@@ -38,6 +38,13 @@ spring:
 
 
 
+
+azure:
+  speech:
+    key:
+    region:
+
+
 jwt:
   key:
 

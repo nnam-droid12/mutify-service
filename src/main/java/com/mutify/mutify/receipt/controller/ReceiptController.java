@@ -33,7 +33,7 @@ public class ReceiptController {
         return receipt.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/business/{businessId}")
+    @GetMapping("/get-receiptByBusinessId/{businessId}")
     public ResponseEntity<List<Receipt>> getReceiptsByBusinessId(@PathVariable Long businessId) {
         List<Receipt> receipts = receiptService.getReceiptsByBusinessId(businessId);
         return ResponseEntity.ok(receipts);

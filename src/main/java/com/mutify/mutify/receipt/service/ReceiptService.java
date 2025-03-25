@@ -10,14 +10,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Service
 public class ReceiptService {
 
-    private final ReceiptRepository receiptRepository;
-
-    public ReceiptService(ReceiptRepository receiptRepository) {
-        this.receiptRepository = receiptRepository;
-    }
+    @Autowired
+    private ReceiptRepository receiptRepository;
 
     public Receipt createReceipt(ReceiptRequest request) {
         Receipt receipt = Receipt.builder()
@@ -37,5 +36,9 @@ public class ReceiptService {
 
     public List<Receipt> getReceiptsByBusinessId(Long businessId) {
         return receiptRepository.findByBusinessId(businessId);
+    }
+
+    public List<Receipt> getReceiptsByDateRange(LocalDateTime startDate, LocalDateTime endDate) {
+        return receiptRepository.findByTimestampBetween(startDate, endDate);
     }
 }
