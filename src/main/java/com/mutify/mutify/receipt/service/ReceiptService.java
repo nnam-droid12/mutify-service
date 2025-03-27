@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,8 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Service
 public class ReceiptService {
 
-    @Autowired
-    private ReceiptRepository receiptRepository;
+    private final ReceiptRepository receiptRepository;
+
+    public ReceiptService(ReceiptRepository receiptRepository) {
+        this.receiptRepository = receiptRepository;
+    }
 
     public Receipt createReceipt(ReceiptRequest request) {
         Receipt receipt = Receipt.builder()
@@ -40,5 +44,14 @@ public class ReceiptService {
 
     public List<Receipt> getReceiptsByDateRange(LocalDateTime startDate, LocalDateTime endDate) {
         return receiptRepository.findByTimestampBetween(startDate, endDate);
+    }
+
+    public List<Receipt> getAllReceipts() {
+        return receiptRepository.findAll();
+    }
+
+    public Optional<Receipt> getReceiptWithHighestAmount() {
+        return receiptRepository.findAll().stream()
+                .max(Comparator.comparingDouble(Receipt::getTotalAmount));
     }
 }

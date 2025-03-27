@@ -38,5 +38,11 @@ public class ReceiptController {
         List<Receipt> receipts = receiptService.getReceiptsByBusinessId(businessId);
         return ResponseEntity.ok(receipts);
     }
+
+    @GetMapping("/getAllReceipt")
+    public ResponseEntity<List<Receipt>> getAllReceipt() {
+        List<Receipt> receipts = receiptService.getAllReceipts();
+        return ResponseEntity.ok(receipts);
+    }
 }
 

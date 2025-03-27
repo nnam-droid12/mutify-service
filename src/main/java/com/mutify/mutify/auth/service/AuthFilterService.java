@@ -1,6 +1,5 @@
 package com.mutify.mutify.auth.service;
 
-
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

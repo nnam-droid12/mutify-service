@@ -21,7 +21,7 @@ public class AzureSpeechController {
 
     @GetMapping("/live-voice-command")
     public ResponseEntity<String> processLiveVoiceCommand() {
-        String recognizedText = azureSpeechService.recognizeLiveSpeech();
+        String recognizedText = azureSpeechService.simulateSpeechRecognition();
 
         if (recognizedText.isEmpty() || recognizedText.equals("Speech not recognized. Try again.")) {
             return ResponseEntity.badRequest().body("Could not understand the speech.");

@@ -3,29 +3,38 @@ package com.mutify.mutify.speech.controller;
 import com.mutify.mutify.speech.service.AdminAssistantService;
 import com.mutify.mutify.speech.service.AzureSpeechService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/admin/assistant")
 public class AdminAssistantController {
 
+    private final AzureSpeechService azureSpeechService;
+    private final AdminAssistantService adminAssistantService;
 
-    private final AzureSpeechService speechService;
-
-
-    private final AdminAssistantService assistantService;
-
-    public AdminAssistantController(AzureSpeechService speechService, AdminAssistantService assistantService) {
-        this.speechService = speechService;
-        this.assistantService = assistantService;
+    public AdminAssistantController(AzureSpeechService azureSpeechService,
+                                    AdminAssistantService adminAssistantService) {
+        this.azureSpeechService = azureSpeechService;
+        this.adminAssistantService = adminAssistantService;
     }
 
     @GetMapping("/voice-command")
-    public String handleVoiceCommand() {
-        String userInput = speechService.recognizeLiveSpeech();
+    public ResponseEntity<String> processVoiceCommand() {
+        try {
+            String transcribedText = azureSpeechService.simulateSpeechRecognition();
 
-        return assistantService.processCommand(userInput);
+            String response = adminAssistantService.processCommand(transcribedText);
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error processing voice command: " + e.getMessage());
+        }
     }
 }

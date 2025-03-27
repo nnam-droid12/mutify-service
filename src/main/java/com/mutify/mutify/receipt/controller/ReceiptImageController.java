@@ -27,11 +27,12 @@ public class ReceiptImageController {
     @PostMapping("/image")
     public ResponseEntity<String> generateReceiptImage(@RequestBody String jsonReceipt) {
         try {
-            File imageFile = receiptImageService.generateReceiptImage(jsonReceipt, "receipt.png");
-            return ResponseEntity.ok("Receipt Image Created: " + imageFile.getAbsolutePath());
+            String imageUrl = receiptImageService.generateAndUploadReceiptImage(jsonReceipt);
+            return ResponseEntity.ok(imageUrl);
         } catch (IOException e) {
             return ResponseEntity.status(500).body("Error generating receipt image");
         }
     }
+
 }
 

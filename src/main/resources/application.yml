@@ -1,8 +1,8 @@
 spring:
   datasource:
-    username: postgres
-    password: 1234
-    url: jdbc:postgresql://localhost:5432/business_db
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: ${SPRING_DATASOURCE_URL}
     driver-class-name: org.postgresql.Driver
 
 
@@ -41,12 +41,15 @@ spring:
 
 azure:
   speech:
-    key:
-    region:
+    key: ${AZURE_SPEECH_KEY}
+    region: ${AZURE_SPEECH_REGION}
 
+  storage:
+    connection-string: ${AZURE_STORAGE_CONNECTION-STRING}
+    container-name: ${AZURE_STORAGE_CONTAINER-NAME}
 
 jwt:
-  key:
+  key: ${JWT_KEY}
 
 
 server:
